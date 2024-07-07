@@ -1,6 +1,6 @@
 namespace :article do
   desc '記事のステータスを自動更新する'
-  task update_publish_wait: :environment do
+  task update_article_state: :environment do
     # TODO: 一旦成功した数をカウントする
     # TODO: 将来的にエラーが発生した数も、カウントする
     success = 0
