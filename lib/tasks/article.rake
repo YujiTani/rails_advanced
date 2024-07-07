@@ -11,7 +11,7 @@ namespace :article do
         article.update(state: :published)
         success += 1
     end
+    p "result: #{success}/#{articles.count}"
   end
 
-    p "result: #{success}/#{articles.count}"
 end
