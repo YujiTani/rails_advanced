@@ -7,11 +7,15 @@ namespace :article do
     # error = 0
     articles = Article.publish_wait.past_published.find_each(&:published!)
 
-    articles.each do |article|
+    if articles.present?
+      articles.each do |article|
         article.update(state: :published)
         success += 1
+      end
+      puts "result: #{success}/#{articles.length}"
     end
-    p "result: #{success}/#{articles.count}"
+
+    puts "記事の自動公開タスクが完了しました。更新された記事数: #{success}"
   end
 
 end
