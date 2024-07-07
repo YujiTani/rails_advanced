@@ -5,15 +5,13 @@ namespace :article do
     # TODO: 将来的にエラーが発生した数も、カウントする
     success = 0
     # error = 0
-    articles = Article.publish_wait
+    articles = Article.publish_wait.past_published.find_each(&:published!)
 
     articles.each do |article|
-      if article.state == 'publish_wait' && Time.current.utc.to_f < article.published_at.utc.to_f
         article.update(state: :published)
         success += 1
-      end
     end
+  end
 
     p "result: #{success}/#{articles.count}"
-  end
 end
