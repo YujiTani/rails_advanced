@@ -4,14 +4,8 @@ class Admin::Articles::PublishesController < ApplicationController
   before_action :set_article
 
   def update
-    # 現在時刻Dataオブジェクトを取得
-    current_time = Time.current
-
-    @article.published_at = current_time unless @article.published_at?
-    # 時差によるバグ防止の為、UTCで比較
-    @article.state = if @article.state == 'published' || @article.state == 'publish_wait'
-                       current_time.utc.to_f >= @article.published_at.utc.to_f ? :published : :publish_wait
-                     end
+    @article.published_at = Time.current unless @article.published_at?
+    @article.state = @article.publishable? ? :published : :publish_wait
 
     if @article.valid?
       # トランザクションを実行
