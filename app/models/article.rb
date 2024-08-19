@@ -39,7 +39,7 @@ class Article < ApplicationRecord
 
   has_one_attached :eye_catch
 
-  enum state: { draft: 0, published: 1 }
+  enum state: { draft: 0, published: 1, publish_wait: 2 }
 
   validates :slug, slug_format: true, uniqueness: true, length: { maximum: 255 }, allow_blank: true
   validates :title, presence: true, uniqueness: true, length: { maximum: 255 }
@@ -66,6 +66,8 @@ class Article < ApplicationRecord
   scope :title_contain, ->(word) { where('title LIKE ?', "%#{word}%") }
   scope :body_contain, ->(word) { where('body LIKE ?', "%#{word}%") }
   scope :with_tag, ->(tag_id) { joins(:tags).where(tags: { id: tag_id }) }
+  # ?はプレースホルダ
+  scope :past_published, -> { where('published_at <= ?', Time.current) }
 
   def build_body(controller)
     result = ''
@@ -73,7 +75,7 @@ class Article < ApplicationRecord
     article_blocks.each do |article_block|
       result << if article_block.sentence?
                   sentence = article_block.blockable
-                  sentence.body
+                  sentence.body || '本文がありません'
                 elsif article_block.medium?
                   medium = ActiveDecorator::Decorator.instance.decorate(article_block.blockable)
                   controller.render_to_string("shared/_media_#{medium.media_type}", locals: { medium: medium }, layout: false)
@@ -92,5 +94,20 @@ class Article < ApplicationRecord
 
   def prev_article
     @prev_article ||= Article.viewable.order(published_at: :desc).find_by('published_at < ?', published_at)
+  end
+
+  def publishable?
+    Time.current >= published_at
+  end
+
+  def adjust_state
+    # 早期リターン
+    return if draft?
+
+    self.state = if publishable?
+                   :published
+                 else
+                   :publish_wait
+                 end
   end
 end
