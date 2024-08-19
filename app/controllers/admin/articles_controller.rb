@@ -59,7 +59,7 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def search_params
-    params[:q]&.permit(:title, :category_id)
+    params[:q]&.permit(:title, :category_id, :author_id, :tag_id, :body)
   end
 
   def set_article
