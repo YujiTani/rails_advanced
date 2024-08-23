@@ -10,6 +10,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
+  # エラー画面404と403をデバッグ用か本番用か切り替えられる
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
