@@ -11,7 +11,7 @@ Rails.application.configure do
 
   # Show full error reports.
   # エラー画面404と403をデバッグ用か本番用か切り替えられる
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = false
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
