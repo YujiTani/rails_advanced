@@ -32,8 +32,19 @@
           = f.input :eye_catch, as: :file
           - if @article.eye_catch.attached?
             = image_tag @article.eye_catch_url(:thumb), class: 'img-thumbnail'
-            br
-            br
+          br
+          br
+          = f.input :eyecatch_width, as: :integer
+          = f.radio_button :eyecatch_position, 0
+          = f.label :eyecatch_position_left, "左寄せ"
+          br
+          = f.radio_button :eyecatch_position, 1
+          = f.label :eyecatch_position_center, "中央"
+          br
+          = f.radio_button :eyecatch_position, 2
+          = f.label :eyecatch_position_right, "右寄せ"
+          br
+          br
           = f.input :description, input_html: { class: 'js-autosize' }
           = f.input :author_id, as: :select2, collection: Author.pluck(:name, :id)
           = f.input :category_id, as: :select2, collection: Category.pluck(:name, :id)
