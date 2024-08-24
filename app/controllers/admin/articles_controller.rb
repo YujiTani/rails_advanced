@@ -55,6 +55,7 @@ class Admin::ArticlesController < ApplicationController
   private
 
   def article_params
+    # フォームから送信されたeyecatch_positionが文字列になってしまうので、ここで数値に変換
     params.require(:article).tap do |whitelisted|
       whitelisted[:eyecatch_position] = whitelisted[:eyecatch_position].to_i if whitelisted[:eyecatch_position].present?
     end.permit(
