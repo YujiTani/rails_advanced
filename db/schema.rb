@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_24_015323) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "deleted_at", precision: nil
-    t.integer "eyecatch_width", default: 200
-    t.integer "eyecatch_position", default: 0
+    t.integer "eyecatch_width"
+    t.integer "eyecatch_position", default: 0, null: false
     t.index ["author_id"], name: "index_articles_on_author_id"
     t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["deleted_at"], name: "index_articles_on_deleted_at"

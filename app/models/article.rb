@@ -48,7 +48,7 @@ class Article < ApplicationRecord
   validates :description, length: { maximum: 1000 }, allow_blank: true
   validates :state, presence: true
   validates :eye_catch, attachment: { purge: true, content_type: %r{\Aimage/(png|jpeg)\Z}, maximum: 10_485_760 }
-  validates :eyecatch_width, numericality: { only_integer: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 700, message: lambda do |_object, data|
+  validates :eyecatch_width, numericality: { only_integer: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 700, allow_blank: true, message: lambda do |_object, data|
     if data[:value] < 100
       '横幅はは100以上の値にしてください'
     elsif data[:value] > 700
