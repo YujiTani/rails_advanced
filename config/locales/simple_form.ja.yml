@@ -57,6 +57,8 @@ ja:
         state: '状態'
         description: '概要'
         eye_catch: 'アイキャッチ'
+        eyecatch_width: 'アイキャッチ横幅'
+        eyecatch_position: 'アイキャッチ位置'
         category_id: 'カテゴリー'
         author_id: '著者'
         tag_ids: 'タグ'
