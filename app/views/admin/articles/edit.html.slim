@@ -32,7 +32,7 @@
           = f.input :eye_catch, as: :file
           - if @article.eye_catch.attached?
             = image_tag @article.eye_catch_url(:thumb), class: 'img-thumbnail'
-          = f.input :eyecatch_width, as: :integer
+          = f.input :eyecatch_width, as: :integer, placeholder: 100
           .form-group
             .form-check
               = f.radio_button :eyecatch_position, Article.eyecatch_positions[:left], class: 'form-check-input'
