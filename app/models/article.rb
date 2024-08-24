@@ -15,7 +15,8 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  deleted_at   :datetime
-#
+#  eyecatch_width :integer, default: 200
+#  eyecatch_position :integer, default: 0
 # Indexes
 #
 #  index_articles_on_author_id     (author_id)
@@ -40,12 +41,21 @@ class Article < ApplicationRecord
   has_one_attached :eye_catch
 
   enum state: { draft: 0, published: 1, publish_wait: 2 }
+  enum eyecatch_position: { center: 0, left: 1, right: 2 }
 
   validates :slug, slug_format: true, uniqueness: true, length: { maximum: 255 }, allow_blank: true
   validates :title, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :description, length: { maximum: 1000 }, allow_blank: true
   validates :state, presence: true
   validates :eye_catch, attachment: { purge: true, content_type: %r{\Aimage/(png|jpeg)\Z}, maximum: 10_485_760 }
+  validates :eyecatch_width, numericality: { only_integer: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 700, message: lambda do |_object, data|
+    if data[:value] < 100
+      '横幅はは100以上の値にしてください'
+    elsif data[:value] > 700
+      '横幅はは700以下の値にしてください'
+    end
+  end }
+  validates :eyecatch_position, presence: true
 
   with_options if: :published? do
     validates :slug, slug_format: true, presence: true, length: { maximum: 255 }

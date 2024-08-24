@@ -14,6 +14,10 @@ class AttachmentValidator < ActiveModel::EachValidator
       has_error = true unless validate_content_type(record, attribute, value)
     end
 
+    if options[:width]
+      has_error = true unless validate_width(record, attribute, value)
+    end
+
     record.send(attribute).purge if options[:purge] && has_error
   end
 
@@ -34,6 +38,22 @@ class AttachmentValidator < ActiveModel::EachValidator
     else
       record.errors[attribute] << (options[:message] || 'は対応できないファイル形式です')
       false
+    end
+  end
+
+  def validate_width(record, attribute, value)
+    width = extract_width(value)
+    min_width = options[:width][:min] || 0
+    max_width = options[:width][:max] || Float::INFINITY
+
+    if width < min_width
+      record.errors[attribute] << (options[:width][:message] || "横幅はは100以上の値にしてください")
+      false
+    elsif width > max_width
+      record.errors[attribute] << (options[:width][:message] || "横幅はは700以下の値にしてください")
+      false
+    else
+      true
     end
   end
 end
