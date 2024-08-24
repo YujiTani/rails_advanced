@@ -59,7 +59,7 @@ class Admin::ArticlesController < ApplicationController
     params.require(:article).tap do |whitelisted|
       whitelisted[:eyecatch_position] = whitelisted[:eyecatch_position].to_i if whitelisted[:eyecatch_position].present?
     end.permit(
-      :title, :description, :slug, :state, :published_at, :eyecatch, :eyecatch_width, :eyecatch_position, :category_id, :author_id, tag_ids: []
+      :title, :description, :slug, :state, :published_at, :eye_catch, :eyecatch_width, :eyecatch_position, :category_id, :author_id, tag_ids: []
     )
   end
 
