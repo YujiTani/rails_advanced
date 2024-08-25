@@ -20,4 +20,8 @@ class Embed < ApplicationRecord
   def youtube_id
     identifier.split('/').last if youtube?
   end
+
+  def twitter_path
+    URI.parse(identifier).path.sub(%r{^/}, '') if twitter?
+  end
 end
