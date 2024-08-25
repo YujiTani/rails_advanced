@@ -13,10 +13,12 @@
  *= require_self
  */
 
-.jumbotron {
-  background: url('/images/cover.jpg') center / cover;
+// header
+.swiper {
+  width: 600px;
+  height: 300px;
   color: white;
-
+  
   a {
     color: white;
   }

@@ -1,5 +1,12 @@
-header.jumbotron.jumbotron-fluid
-  .container
-    h1 = link_to current_site.name, root_path
-    p.lead = current_site.subtitle
-
+header.swiper
+  .swiper-wrapper
+    .swiper-slide
+      = image_tag 'slide1.jpg', alt: 'Slide 1'
+    .swiper-slide
+      = image_tag 'slide2.jpg', alt: 'Slide 2'
+    .swiper-slide
+      = image_tag 'slide3.jpg', alt: 'Slide 3'
+  .swiper-pagination
+  .swiper-button-prev
+  .swiper-button-next
+  h1 = link_to current_site.name, root_path
