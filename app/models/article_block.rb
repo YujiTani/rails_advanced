@@ -79,4 +79,12 @@ class ArticleBlock < ApplicationRecord
 
     blockable
   end
+
+  def twitter?
+    embed? && blockable.twitter?
+  end
+
+  def youtube?
+    embed? && blockable.youtube?
+  end
 end
