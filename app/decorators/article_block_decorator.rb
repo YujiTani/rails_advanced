@@ -6,7 +6,7 @@ module ArticleBlockDecorator
       '<i class="fa fa-image"></i>'.html_safe
     elsif embed?
       if twitter?
-        '<i class="fa-brands fa-twitter"></i>'.html_safe
+        '<i class="fa fa-twitter"></i>'.html_safe
       else
         '<i class="fa fa-youtube-play"></i>'.html_safe
       end
