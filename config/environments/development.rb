@@ -57,4 +57,5 @@ Rails.application.configure do
 
   # Storage
   config.active_storage.service = :local
+  config.active_storage.replace_on_assign_to_many = true
 end

@@ -17,4 +17,17 @@ module SiteDecorator
 
     command ? og_image.variant(command).processed : og_image
   end
+
+  def images_url(version = :origin)
+    return nil if !images.attached? || images.metadata.blank?
+
+    command = case version
+              when :thumb
+                { resize: '200x200' }
+              else
+                false
+              end
+
+    command ? images.variant(command).processed : images
+  end
 end
